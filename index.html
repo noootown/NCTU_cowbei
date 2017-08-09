@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>靠北交大排行榜</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autolinker/1.4.3/Autolinker.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="container" id="header">
+        <div class="row header-row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h4 class="code-link">
+                    <i class="fa fa-code header-link">
+                        <a href="https://github.com/noootown/NCTU_cowbei">Code</a>
+                    </i>
+                    <i class="fa fa-github header-link">
+                        <a href="https://github.com/noootown">Github</a>
+                    </i>
+                </h4>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="container" id="root">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id = "main">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</body>
+<div id="fb-root"></div>
+<script>
+  var autolinker = new Autolinker();
+  $.ajax({
+    url: './cowbei.csv',
+    'Content-Type': 'application/json',
+  }).done(data => {
+    console.log(data.length)
+    d = $.csv.toArrays(data).map(arr => [arr[0], Number(arr[1]), arr[2], arr[3]])
+    for (i = 0; i < 200; i++) {
+      dd = d[i]
+      $('#main').append(
+        '<div class="row post">' +
+        `<div class = "rank"># ${i + 1}</div>` +
+        '<div class = "message">' +
+        `<span style="white-space: pre-line">${autolinker.link(dd[0])}</span>` +
+        '</div>' +
+        `<div class="good">
+            <i class="fa fa-thumbs-up icon"></i>
+            ${dd[1]}
+        </div>` +
+        `<div class="link">` +
+        `<a href="${dd[3]}">${dd[3]}</a>` +
+        `</div>` +
+        '</div>'
+        )
+    }
+  })
+</script>
+</html>
