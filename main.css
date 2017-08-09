@@ -41,7 +41,7 @@ body {
 .post {
     position: relative;
     display: inline-block;
-    height: 400px;
+    height: 450px;
     width: 100%;
     padding: 20px;
     background: #ffffff;
@@ -63,7 +63,7 @@ body {
     bottom: 15px;
 }
 .message {
-    height: 65%;
+    height: 70%;
     overflow: overlay;
     font-size: 1rem;
     text-overflow: ellipsis;
