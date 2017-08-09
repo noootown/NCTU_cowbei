@@ -41,7 +41,7 @@ body {
 .post {
     position: relative;
     display: inline-block;
-    height: 350px;
+    height: 400px;
     width: 100%;
     padding: 20px;
     background: #ffffff;
@@ -49,6 +49,10 @@ body {
     border-radius: 4px;
 }
 .good {
+    position: absolute;
+    bottom: 75px;
+}
+.date {
     position: absolute;
     bottom: 45px;
 }
@@ -59,7 +63,7 @@ body {
     bottom: 15px;
 }
 .message {
-    height: 70%;
+    height: 65%;
     overflow: overlay;
     font-size: 1rem;
     text-overflow: ellipsis;
