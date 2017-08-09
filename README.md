@@ -7,5 +7,5 @@ To make the page load faster, I only show 200 highest rank posts, but all posts 
 
 Have fun! And I have to get my dinner LOL
 
-# Inviroment
+# Environment
 python3
