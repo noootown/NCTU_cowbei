@@ -18,15 +18,17 @@ def extract(inf):
           requests.get('https://graph.facebook.com/v2.10/%s/likes?access_token=%s&summary=true' % (inf['id'], token)).json()['summary']['total_count'],
           inf['created_time'][:19]]
 
-while n < 5:
+while 'data' in res:
   info.extend([extract(inf) for inf in res['data'] if isCrawl(inf)])
   try:
     res = requests.get(res['paging']['next']).json()
     n += 1
     print('Finish page %d\r' % n, end = '\r')
   except:
-    print('')
+    print('\n')
     break
+
+info.sort(key = lambda x: -x[1])
 
 with open('cowbei.csv', 'w') as file:
   w = csv.writer(file)
