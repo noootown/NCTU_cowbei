@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>靠北交大排行榜</title>
+    <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
@@ -44,36 +44,40 @@
         </div>
     </div>
 </body>
-<div id="fb-root"></div>
 <script>
   var autolinker = new Autolinker();
   $.ajax({
-    url: './cowbei.csv',
+    url: './config.json',
     'Content-Type': 'application/json',
-  }).done(data => {
-    console.log(data.length)
-    d = $.csv.toArrays(data).map(arr => [arr[0], Number(arr[1]), arr[2], arr[3]])
-    for (i = 0; i < 200; i++) {
-      dd = d[i]
-      $('#main').append(
-        '<div class="row post">' +
-        `<div class = "rank"># ${i + 1}</div>` +
-        '<div class = "message">' +
-        `<span style="white-space: pre-line">${autolinker.link(dd[0])}</span>` +
-        '</div>' +
-        `<div class="good">
-            <i class="fa fa-thumbs-up icon"></i>
-            ${dd[1]}
-        </div>` +
-        `<div class="date">
-            ${new Date(Date.parse(dd[2])).toLocaleString()}
-        </div>` +
-        `<div class="link">` +
-        `<a href="${dd[3]}">${dd[3]}</a>` +
-        `</div>` +
-        '</div>'
+  }).done(({ filename, showNum, title }) => {
+    document.title = title
+    $.ajax({
+      url: `./${filename}`,
+      'Content-Type': 'application/json',
+    }).done(data => {
+      d = $.csv.toArrays(data).map(arr => [arr[0], Number(arr[1]), arr[2], arr[3]])
+      for (i = 0; i < showNum; i++) {
+        dd = d[i]
+        $('#main').append(
+          `<div class="row post">
+             <div class = "rank"># ${i + 1}</div>
+             <div class = "message">
+               <span style="white-space: pre-line">${autolinker.link(dd[0])}</span>
+             </div>
+             <div class="good">
+               <i class="fa fa-thumbs-up icon"></i>
+               ${dd[1]}
+             </div>
+             <div class="date">
+               ${new Date(Date.parse(dd[2])).toLocaleString()}
+             </div>
+             <div class="link">
+               <a href="${dd[3]}">${dd[3]}</a>
+             </div>
+          </div>`
         )
-    }
+      }
+    })
   })
 </script>
 </html>

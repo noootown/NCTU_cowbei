@@ -1,11 +1,6 @@
 import requests
 import csv
-from config import token
-
-fanpageID = '557872311000387'
-info = []
-res = requests.get('https://graph.facebook.com/v2.10/%s/posts?access_token=%s&pretty=1&fields=message,likes,created_time,permalink_url&limit=100' % (fanpageID, token)).json()
-n = 0
+import json
 
 def isCrawl(inf):
   try:
@@ -20,19 +15,31 @@ def extract(inf):
           inf['permalink_url']
           ]
 
-while 'data' in res:
-  info.extend([extract(inf) for inf in res['data'] if isCrawl(inf)])
-  try:
-    res = requests.get(res['paging']['next']).json()
-    n += 1
-    print('Finish page %d\r' % n, end = '\r')
-  except:
-    print('\n')
-    break
+if __name__ == '__main__':
+  with open('./config.json') as file:
+    config = json.load(file)
 
-info.sort(key = lambda x: -x[1])
+    fanpageID = config['fanPageID']
+    token = config['token']
+    outputFile = config['filename']
 
-with open('cowbei.csv', 'w') as file:
-  w = csv.writer(file)
-  for i in info:
-    w.writerow(i)
+  info = []
+  res = requests.get('https://graph.facebook.com/v2.10/%s/posts?access_token=%s&pretty=1&fields=message,likes,created_time,permalink_url&limit=100' % (fanpageID, token)).json()
+  n = 0
+
+  while 'data' in res:
+    info.extend([extract(inf) for inf in res['data'] if isCrawl(inf)])
+    try:
+      res = requests.get(res['paging']['next']).json()
+      n += 1
+      print('Finish page %d\r' % n, end = '\r')
+    except:
+      print('\n')
+      break
+
+  info.sort(key = lambda x: -x[1])
+
+  with open(outputFile, 'w') as file:
+    w = csv.writer(file)
+    for i in info:
+      w.writerow(i)

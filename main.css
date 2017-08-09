@@ -4,10 +4,10 @@ body {
     background: #e9ebee;
 }
 #header {
-    padding: 20px;
+    padding: 15px;
     width: 100%;
     position: fixed;
-    height: 70px;
+    height: 60px;
     background: #ffffff;
     border-bottom-color: #e5e5e5;
     z-index: 99999;
@@ -21,6 +21,7 @@ body {
     text-decoration: none;
 }
 .header-link {
+    font-size: 20px;
     margin: 0 20px;
 }
 .header-row {
