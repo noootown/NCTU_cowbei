@@ -65,7 +65,7 @@ body {
 }
 .message {
     height: 70%;
-    overflow: overlay;
+    overflow: auto;
     font-size: 1rem;
     text-overflow: ellipsis;
 }
