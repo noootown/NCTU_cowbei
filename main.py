@@ -41,5 +41,5 @@ if __name__ == '__main__':
 
   with open(outputFile, 'w') as file:
     w = csv.writer(file)
-    for i in info:
+    for i in info[:config['showNum']]:
       w.writerow(i)
