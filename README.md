@@ -11,7 +11,7 @@ Feel free to fork and have fun! I have to get my dinner LOL.
 ## Environment
 - python3
 ## Step
-1. To crawl posts from Facebook, you need to edit ```config.json```. Please access [Facebook Graph API Explorer](https://developers.facebook.com/tools/explorer/) and get your Facebook token and fanpage ID. There's no need to worry about the token being uploaded to Github pages, since the token will expire in two hours. Here's the picture:
+1. To crawl posts from Facebook, you need to edit ```config.json```. Please access [Facebook Graph API Explorer](https://developers.facebook.com/tools/explorer/) and get your Facebook token and fanpage ID. There's no need to worry about the token being uploaded to GitHub pages since the token will expire in two hours. Here's the picture:
 
 ![](./explorer.png)
 
